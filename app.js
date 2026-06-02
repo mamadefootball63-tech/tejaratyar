@@ -110,4 +110,4 @@ function render() {
   if (pc) pc.textContent = products.length;
   if (cc) cc.textContent = customers.length;
   if (ic) ic.textContent = invoices.length;
-}
+}9
