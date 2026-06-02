@@ -21,8 +21,8 @@ alert("نام کاربری یا رمز اشتباه است");
 }
 
 function showTab(id) {
-document.querySelectorAll("section").forEach(s => {
-s.classList.add("hidden");
+document.querySelectorAll("section").forEach(section => {
+section.classList.add("hidden");
 });
 
 document.getElementById(id).classList.remove("hidden");
@@ -42,22 +42,28 @@ const qty = document.getElementById("pq")?.value || "";
 if (!name) return;
 
 products.push({
-name,
-price,
-qty
+name: name,
+price: price,
+qty: qty
 });
 
 document.getElementById("pn").value = "";
-if(document.getElementById("pp")) document.getElementById("pp").value = "";
-if(document.getElementById("pq")) document.getElementById("pq").value = "";
+
+if (document.getElementById("pp")) {
+document.getElementById("pp").value = "";
+}
+
+if (document.getElementById("pq")) {
+document.getElementById("pq").value = "";
+}
 
 save();
 render();
 }
 
-function deleteProduct(index){
-if(confirm("کالا حذف شود؟")){
-products.splice(index,1);
+function deleteProduct(index) {
+if (confirm("کالا حذف شود؟")) {
+products.splice(index, 1);
 save();
 render();
 }
@@ -69,7 +75,7 @@ const name = document.getElementById("cn").value;
 if (!name) return;
 
 customers.push({
-name
+name: name
 });
 
 document.getElementById("cn").value = "";
@@ -78,9 +84,9 @@ save();
 render();
 }
 
-function deleteCustomer(index){
-if(confirm("مشتری حذف شود؟")){
-customers.splice(index,1);
+function deleteCustomer(index) {
+if (confirm("مشتری حذف شود؟")) {
+customers.splice(index, 1);
 save();
 render();
 }
@@ -92,7 +98,7 @@ const name = document.getElementById("iname").value;
 if (!name) return;
 
 invoices.push({
-name
+name: name
 });
 
 document.getElementById("iname").value = "";
@@ -101,9 +107,9 @@ save();
 render();
 }
 
-function deleteInvoice(index){
-if(confirm("فاکتور حذف شود؟")){
-invoices.splice(index,1);
+function deleteInvoice(index) {
+if (confirm("فاکتور حذف شود؟")) {
+invoices.splice(index, 1);
 save();
 render();
 }
@@ -120,21 +126,15 @@ const cc = document.getElementById("cc");
 const ic = document.getElementById("ic");
 
 if (plist) {
-plist.innerHTML = products
-.map((p,index)=>"<li> 📦 ${p.name} ${p.price ?"<br>💰 ${p.price}": ""} ${p.qty ?"<br>📊 موجودی: ${p.qty}": ""} <br> <button onclick="deleteProduct(${index})"> 🗑 حذف </button> </li>")
-.join("");
+plist.innerHTML = products.map((p, index) => "<li> 📦 ${p.name} ${p.price ?"<br>💰 ${p.price}": ""} ${p.qty ?"<br>📊 موجودی: ${p.qty}": ""} <br><br> <button onclick="deleteProduct(${index})"> 🗑 حذف </button> </li>").join("");
 }
 
 if (clist) {
-clist.innerHTML = customers
-.map((c,index)=>"<li> 👤 ${c.name} <br> <button onclick="deleteCustomer(${index})"> 🗑 حذف </button> </li>")
-.join("");
+clist.innerHTML = customers.map((c, index) => "<li> 👤 ${c.name} <br><br> <button onclick="deleteCustomer(${index})"> 🗑 حذف </button> </li>").join("");
 }
 
 if (ilist) {
-ilist.innerHTML = invoices
-.map((i,index)=>"<li> 🧾 ${i.name} <br> <button onclick="deleteInvoice(${index})"> 🗑 حذف </button> </li>")
-.join("");
+ilist.innerHTML = invoices.map((i, index) => "<li> 🧾 ${i.name} <br><br> <button onclick="deleteInvoice(${index})"> 🗑 حذف </button> </li>").join("");
 }
 
 if (pc) pc.textContent = products.length;
