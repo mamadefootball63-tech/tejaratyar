@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#00d4ff">
-<title>TejaratYar V5.3</title>
+<title>TejaratYar V5.6</title>
 <link rel="stylesheet" href="style.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,18 +15,19 @@
 
 <div id="login">
   <div class="login-box">
-    <h1>🚀 تجارت‌یار V5.3</h1>
+    <h1>🚀 تجارت‌یار V5.6</h1>
     <p class="subtitle">سیستم مدیریت فروشگاه</p>
     <input id="u" placeholder="نام کاربری">
     <input id="p" type="password" placeholder="رمز عبور">
-    <button onclick="login()">ورود به سیستم</button>
+    <button onclick="login()">ورود</button>
+    <button onclick="register()">ثبت‌نام</button>
   </div>
 </div>
 
 <div id="app" style="display:none;">
 
   <header class="hero">
-    <h1>🚀 تجارت‌یار V5.3</h1>
+    <h1>🚀 تجارت‌یار V5.6</h1>
     <p>مدیریت حرفه‌ای فروشگاه</p>
   </header>
 
@@ -85,20 +86,22 @@
   </section>
 
   <section id="reports" class="hidden">
-    <h2>گزارشات فروش</h2>
+    <h2>گزارشات</h2>
     <p>تعداد کالاها: <span id="reportProducts">0</span></p>
     <p>تعداد مشتریان: <span id="reportCustomers">0</span></p>
     <p>تعداد فاکتورها: <span id="reportInvoices">0</span></p>
     <p>ارزش کل انبار: <span id="reportInventoryValue">0</span></p>
+    <button onclick="printReports()">🖨 چاپ گزارشات</button>
   </section>
 
   <section id="settings" class="hidden">
     <h2>تنظیمات سیستم</h2>
-    <p>در این بخش می‌توانید تنظیمات اولیه را اعمال کنید.</p>
+    <p>نسخه برنامه: V5.6</p>
+    <p>تغییر نام کاربری و رمز عبور از طریق ثبت‌نام انجام می‌شود.</p>
   </section>
 
 </div>
 
 <script src="app.js"></script>
 </body>
-      </html>
+</html>
