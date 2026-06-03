@@ -169,4 +169,8 @@ console.log("Service Worker Registered");
 console.log("SW Error:", err);
 });
 });
-  }
+  }function toggleMenu() {
+document
+.getElementById("sidebar")
+.classList.toggle("open");
+}
