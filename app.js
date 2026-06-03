@@ -20,19 +20,10 @@ alert("نام کاربری یا رمز اشتباه است");
 }
 }
 
-function toggleMenu() {
-const sidebar = document.getElementById("sidebar");
-if (sidebar) {
-sidebar.classList.toggle("open");
-}
-}
-
 function showTab(id) {
-document.querySelectorAll("section").forEach(section => {
-section.classList.add("hidden");
-});
-
-document.getElementById(id).classList.remove("hidden");
+document.querySelectorAll("section").forEach(s => s.classList.add("hidden"));
+const tab = document.getElementById(id);
+if(tab) tab.classList.remove("hidden");
 }
 
 function save() {
@@ -41,175 +32,143 @@ localStorage.customers = JSON.stringify(customers);
 localStorage.invoices = JSON.stringify(invoices);
 }
 
+/* مدیریت کالاها */
 function addProduct() {
 const name = document.getElementById("pn").value;
 const price = document.getElementById("pp").value;
 const qty = document.getElementById("pq").value;
+if(!name) return;
 
-if (!name) return;
-
-products.push({
-name,
-price,
-qty
-});
-
-document.getElementById("pn").value = "";
-document.getElementById("pp").value = "";
-document.getElementById("pq").value = "";
-
+products.push({name, price, qty});
+document.getElementById("pn").value="";
+document.getElementById("pp").value="";
+document.getElementById("pq").value="";
 save();
 render();
 }
 
-function deleteProduct(index) {
-if (confirm("کالا حذف شود؟")) {
-products.splice(index, 1);
+function deleteProduct(index){
+if(confirm("کالا حذف شود؟")){
+products.splice(index,1);
 save();
 render();
 }
 }
 
-function addCustomer() {
+/* مدیریت مشتریان */
+function addCustomer(){
 const name = document.getElementById("cn").value;
-
-if (!name) return;
-
-customers.push({ name });
-
-document.getElementById("cn").value = "";
-
+if(!name) return;
+customers.push({name});
+document.getElementById("cn").value="";
 save();
 render();
 }
 
-function deleteCustomer(index) {
-if (confirm("مشتری حذف شود؟")) {
-customers.splice(index, 1);
+function deleteCustomer(index){
+if(confirm("مشتری حذف شود؟")){
+customers.splice(index,1);
 save();
 render();
 }
 }
 
-function addInvoice() {
+/* مدیریت فاکتورها */
+function addInvoice(){
 const name = document.getElementById("iname").value;
-
-if (!name) return;
-
-invoices.push({ name });
-
-document.getElementById("iname").value = "";
-
+if(!name) return;
+invoices.push({name});
+document.getElementById("iname").value="";
 save();
 render();
 }
 
-function deleteInvoice(index) {
-if (confirm("فاکتور حذف شود؟")) {
-invoices.splice(index, 1);
+function deleteInvoice(index){
+if(confirm("فاکتور حذف شود؟")){
+invoices.splice(index,1);
 save();
 render();
 }
 }
 
 /* بکاپ */
-
-function downloadBackup() {
-const data = {
-products,
-customers,
-invoices
-};
-
-const blob = new Blob(
-[JSON.stringify(data, null, 2)],
-{ type: "application/json" }
-);
-
+function downloadBackup(){
+const data = {products, customers, invoices};
+const blob = new Blob([JSON.stringify(data,null,2)], {type:"application/json"});
 const a = document.createElement("a");
 a.href = URL.createObjectURL(blob);
 a.download = "tejaratyar-backup.json";
 a.click();
 }
 
-function restoreBackup(event) {
+function restoreBackup(event){
 const file = event.target.files[0];
-
-if (!file) return;
-
+if(!file) return;
 const reader = new FileReader();
-
-reader.onload = function(e) {
+reader.onload = function(e){
 const data = JSON.parse(e.target.result);
-
-products = data.products || [];
-customers = data.customers || [];
-invoices = data.invoices || [];
-
+products = data.products||[];
+customers = data.customers||[];
+invoices = data.invoices||[];
 save();
 render();
-
 alert("بازیابی با موفقیت انجام شد");
-
 };
-
 reader.readAsText(file);
 }
 
-function render() {
-
+/* Render همه بخش‌ها */
+function render(){
 const plist = document.getElementById("plist");
 const clist = document.getElementById("clist");
 const ilist = document.getElementById("ilist");
-
 const pc = document.getElementById("pc");
 const cc = document.getElementById("cc");
 const ic = document.getElementById("ic");
 
-const inventoryValue =
-document.getElementById("inventoryValue");
+const inventoryValue = document.getElementById("inventoryValue");
 
-if (plist) {
-plist.innerHTML = products.map((p, index) => "<li> 📦 ${p.name} <br> 💰 قیمت: ${p.price || 0} <br> 📊 موجودی: ${p.qty || 0} <br><br> <button onclick="deleteProduct(${index})"> 🗑 حذف </button> </li>").join("");
+const reportProducts = document.getElementById("reportProducts");
+const reportCustomers = document.getElementById("reportCustomers");
+const reportInvoices = document.getElementById("reportInvoices");
+const reportInventoryValue = document.getElementById("reportInventoryValue");
+
+if(plist){
+plist.innerHTML = products.map((p,i)=>" <li> 📦 ${p.name}<br> 💰 قیمت: ${p.price||0}<br> 📊 موجودی: ${p.qty||0}<br><br> <button onclick="deleteProduct(${i})">🗑 حذف</button> </li>").join("");
 }
 
-if (clist) {
-clist.innerHTML = customers.map((c, index) => "<li> 👤 ${c.name} <br><br> <button onclick="deleteCustomer(${index})"> 🗑 حذف </button> </li>").join("");
+if(clist){
+clist.innerHTML = customers.map((c,i)=>" <li> 👤 ${c.name}<br><br> <button onclick="deleteCustomer(${i})">🗑 حذف</button> </li>").join("");
 }
 
-if (ilist) {
-ilist.innerHTML = invoices.map((i, index) => "<li> 🧾 ${i.name} <br><br> <button onclick="deleteInvoice(${index})"> 🗑 حذف </button> </li>").join("");
+if(ilist){
+ilist.innerHTML = invoices.map((i,index)=>" <li> 🧾 ${i.name}<br><br> <button onclick="deleteInvoice(${index})">🗑 حذف</button> </li>").join("");
 }
 
+/* محاسبه ارزش انبار /
 let totalInventory = 0;
-
-products.forEach(p => {
-totalInventory +=
-(Number(p.price) || 0) *
-(Number(p.qty) || 0);
+products.forEach(p=>{
+totalInventory += (Number(p.price)||0)(Number(p.qty)||0);
 });
+if(inventoryValue) inventoryValue.textContent = totalInventory.toLocaleString("fa-IR");
+if(reportInventoryValue) reportInventoryValue.textContent = totalInventory.toLocaleString("fa-IR");
 
-if (inventoryValue) {
-inventoryValue.textContent =
-totalInventory.toLocaleString("fa-IR");
-}
-
-if (pc) pc.textContent = products.length;
-if (cc) cc.textContent = customers.length;
-if (ic) ic.textContent = invoices.length;
+/* آپدیت آمار گزارشات */
+if(pc) pc.textContent = products.length;
+if(cc) cc.textContent = customers.length;
+if(ic) ic.textContent = invoices.length;
+if(reportProducts) reportProducts.textContent = products.length;
+if(reportCustomers) reportCustomers.textContent = customers.length;
+if(reportInvoices) reportInvoices.textContent = invoices.length;
 }
 
 render();
 
-if ("serviceWorker" in navigator) {
-window.addEventListener("load", () => {
-navigator.serviceWorker
-.register("./service-worker.js")
-.then(() => {
-console.log("Service Worker Registered");
-})
-.catch(err => {
-console.log("SW Error:", err);
+/* Service Worker */
+if("serviceWorker" in navigator){
+window.addEventListener("load",()=>{
+navigator.serviceWorker.register("./service-worker.js")
+.then(()=>console.log("Service Worker Registered"))
+.catch(err=>console.log("SW Error:",err));
 });
-});
-                               }
+  }
