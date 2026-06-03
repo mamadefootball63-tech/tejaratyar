@@ -1,59 +1,86 @@
-function render(){
+/* ===== V5.7 Multi User ===== */
 
-const plist = document.getElementById("plist");
-const clist = document.getElementById("clist");
-const ilist = document.getElementById("ilist");
-
-const pc = document.getElementById("pc");
-const cc = document.getElementById("cc");
-const ic = document.getElementById("ic");
-
-const inventoryValue = document.getElementById("inventoryValue");
-
-const reportProducts = document.getElementById("reportProducts");
-const reportCustomers = document.getElementById("reportCustomers");
-const reportInvoices = document.getElementById("reportInvoices");
-const reportInventoryValue = document.getElementById("reportInventoryValue");
-
-/* اصلاح اطلاعات قدیمی */
-products = products.map(p => ({
-name: p.name || "",
-price: parseFloat(p.price) || 0,
-qty: parseFloat(p.qty) || 0
-}));
-
-if(plist){
-plist.innerHTML = products.map((p,i)=>"<li> 📦 ${p.name}<br> 💰 قیمت: ${p.price}<br> 📊 موجودی: ${p.qty}<br><br> <button onclick="deleteProduct(${i})">🗑 حذف</button> </li>").join("");
+if(!localStorage.users){
+localStorage.users = JSON.stringify([
+{
+username:"admin",
+password:"1234"
+}
+]);
 }
 
-if(clist){
-clist.innerHTML = customers.map((c,i)=>"<li> 👤 ${c.name}<br><br> <button onclick="deleteCustomer(${i})">🗑 حذف</button> </li>").join("");
+function register(){
+
+const username = prompt("نام کاربری");
+
+if(!username) return;
+
+const password = prompt("رمز عبور");
+
+if(!password) return;
+
+let users = JSON.parse(localStorage.users);
+
+const exists = users.find(
+u => u.username === username
+);
+
+if(exists){
+alert("این کاربر قبلاً ثبت شده است");
+return;
 }
 
-if(ilist){
-ilist.innerHTML = invoices.map((inv,i)=>"<li> 🧾 ${inv.name}<br><br> <button onclick="deleteInvoice(${i})">🗑 حذف</button> </li>").join("");
+users.push({
+username,
+password
+});
+
+localStorage.users = JSON.stringify(users);
+
+alert("ثبت نام موفق بود");
 }
 
-/* محاسبه ارزش انبار */
-let totalInventory = products.reduce((sum,p)=>{
-return sum + (p.price * p.qty);
-},0);
+function login(){
 
-if(inventoryValue){
-inventoryValue.textContent =
-totalInventory.toLocaleString("fa-IR");
+const username =
+document.getElementById("u").value;
+
+const password =
+document.getElementById("p").value;
+
+let users =
+JSON.parse(localStorage.users);
+
+const user = users.find(
+u =>
+u.username === username &&
+u.password === password
+);
+
+if(user){
+
+localStorage.currentUser =
+  username;
+
+document.getElementById("login").style.display =
+  "none";
+
+document.getElementById("app").style.display =
+  "block";
+
+render();
+
+}else{
+
+alert("نام کاربری یا رمز اشتباه است");
+
+}
 }
 
-if(reportInventoryValue){
-reportInventoryValue.textContent =
-totalInventory.toLocaleString("fa-IR");
-}
+function logout(){
 
-if(pc) pc.textContent = products.length;
-if(cc) cc.textContent = customers.length;
-if(ic) ic.textContent = invoices.length;
+localStorage.removeItem("currentUser");
 
-if(reportProducts) reportProducts.textContent = products.length;
-if(reportCustomers) reportCustomers.textContent = customers.length;
-if(reportInvoices) reportInvoices.textContent = invoices.length;
+location.reload();
+
 }
