@@ -2,45 +2,41 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#00d4ff"><title>TejaratYar V5.3</title><link rel="stylesheet" href="style.css"><link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet"></head><body><div id="login"><div class="login-box"><h1>🚀 تجارت‌یار V5.3</h1><p class="subtitle">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head><body><div id="login"><div class="login-box"><h1>🚀 تجارت‌یار V5.3</h1><p class="subtitle">
 سیستم مدیریت فروشگاه
-</p><input id="u" placeholder="نام کاربری"><input id="p"
-type="password"
-placeholder="رمز عبور">
-
-<button onclick="login()">
+</p><input id="u" placeholder="نام کاربری"><input id="p" type="password" placeholder="رمز عبور"><button onclick="login()">
 ورود به سیستم
-</button></div></div><div id="app" style="display:none;"><header class="hero"><h1>🚀 تجارت‌یار V5.3</h1><p>
-مدیریت حرفه‌ای فروشگاه
-</p></header><nav><button onclick="showTab('dashboard')">
-📊 داشبورد
+</button></div></div><div id="app" style="display:none;"><button class="menu-btn" onclick="toggleMenu()">
+☰
+</button><div id="sidebar" class="sidebar"><h2>🚀 تجارت‌یار</h2><button onclick="showTab('dashboard')">
+🏠 داشبورد
 </button><button onclick="showTab('products')">
 📦 کالاها
 </button><button onclick="showTab('customers')">
 👥 مشتریان
 </button><button onclick="showTab('invoices')">
 🧾 فاکتورها
-</button></nav><section id="dashboard"><h2>داشبورد مدیریت</h2><div class="stats"><div class="stat blue">
+</button><button>
+📊 گزارشات
+</button><button>
+⚙️ تنظیمات
+</button></div><header class="hero"><h1>🚀 تجارت‌یار V5.3</h1><p>
+مدیریت حرفه‌ای فروشگاه
+</p></header><section id="dashboard"><h2>داشبورد مدیریت</h2><div class="stats"><div class="stat">
 <h3>📦 کالاها</h3>
 <p id="pc">0</p>
-</div><div class="stat green">
+</div><div class="stat">
 <h3>👥 مشتریان</h3>
 <p id="cc">0</p>
-</div><div class="stat orange">
+</div><div class="stat">
 <h3>🧾 فاکتورها</h3>
 <p id="ic">0</p>
-</div></div></section><section id="products" class="hidden"><h2>مدیریت کالاها</h2><input id="pn" placeholder="نام کالا"><input id="pp"
-type="number"
-placeholder="قیمت">
-
-<input id="pq"
-type="number"
-placeholder="موجودی">
-
-<button onclick="addProduct()">
+</div></div></section><section id="products" class="hidden"><h2>مدیریت کالاها</h2><input id="pn" placeholder="نام کالا"><input id="pp" type="number" placeholder="قیمت"><input id="pq" type="number" placeholder="موجودی"><button onclick="addProduct()">
 ➕ افزودن کالا
 </button><ul id="plist"></ul></section><section id="customers" class="hidden"><h2>مدیریت مشتریان</h2><input id="cn" placeholder="نام مشتری"><button onclick="addCustomer()">
 ➕ افزودن مشتری
 </button><ul id="clist"></ul></section><section id="invoices" class="hidden"><h2>مدیریت فاکتورها</h2><input id="iname" placeholder="شرح فاکتور"><button onclick="addInvoice()">
 ➕ ثبت فاکتور
-</button><ul id="ilist"></ul></section></div><script src="app.js"></script></body></html>
+</button><ul id="ilist"></ul></section></div><script src="app.js"></script></body>
+</html>
