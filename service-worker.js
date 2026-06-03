@@ -1,4 +1,4 @@
-const CACHE_NAME = "tejaratyar-v53";
+Update cache version to v54
 
 const urlsToCache = [
 "./",
