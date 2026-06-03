@@ -133,4 +133,42 @@ box-shadow:0 0 15px rgba(0,212,255,.08);
 
 .hidden{
 display:none;
+} .menu-btn{
+position:fixed;
+top:20px;
+right:20px;
+width:60px;
+height:60px;
+border-radius:50%;
+font-size:28px;
+z-index:99999;
+}
+
+.sidebar{
+position:fixed;
+top:0;
+right:-280px;
+width:250px;
+height:100%;
+background:#111827;
+padding:20px;
+transition:0.3s;
+z-index:99998;
+overflow-y:auto;
+}
+
+.sidebar.open{
+right:0;
+}
+
+.sidebar h2{
+text-align:center;
+margin-bottom:20px;
+}
+
+.sidebar button{
+display:block;
+width:100%;
+margin:10px 0;
+text-align:right;
 }
